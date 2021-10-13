@@ -6,7 +6,7 @@ This addon allows the user to save render presets per engine.
 <b>Windows: </b>```C:\Documents and Settings\%username%\Application Data\Blender Foundation\Blender\VERSION\scripts\presets\``` <br>
 <b>Linux: </b>```~/.config/blender/VERSION/scripts/presets/``` <br>
 
-!['Example UI'](https://raw.githubusercontent.com/wiki/schroef/Save-Render-Presets/images/save-render-presets-v001.jpg)
+!['Example UI'](https://raw.githubusercontent.com/wiki/schroef/Save-Render-Presets/images/save-render-presets-v001.png?13102021)
 
 
 ### System Requirements
