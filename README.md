@@ -18,8 +18,8 @@ A new approach getting engine attributes(setting values), thanks to Daniel Engle
 
 | **OS** | **Blender** |
 | ------------- | ------------- |
-| OSX | Blender 2.90+ |
-| Windows | Blender 2.90+ |
+| OSX | Blender 2.80+ |
+| Windows | Blender 2.80+ |
 | Linux | Not Tested |
 
 
