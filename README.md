@@ -4,12 +4,14 @@ This addon allows the user to save render presets per engine. This allows for ve
 
 A new approach getting engine attributes(setting values), thanks to Daniel Engler (['Eevee-presets'](https://github.com/danielenger/Eevee-Presets/)), makes this addon work on all Blender version without a hustle.
 
+>Please note when presets are moved between from Blender versions, errors can show due to settings not available in lower Blender version. Solution to this is exclude this setting in the preset file (adding # character in that line and save). When moving your presets to a newer version of Blender, which perhaps has newer settings in the render engine. Load that preset and then change the setting to your liking and save the preset under the same name. Below the image you can find the location of the saved presets.
+
+
+!['Example UI'](https://raw.githubusercontent.com/wiki/schroef/Save-Render-Presets/images/save-render-presets-v002.png?14102021)
 
 <b>OSX: </b>```/Users/{user}/Library/Application/Support/Blender/VERSION/scripts/presets/``` <br>
 <b>Windows: </b>```C:\Documents and Settings\%username%\Application Data\Blender Foundation\Blender\VERSION\scripts\presets\``` <br>
 <b>Linux: </b>```~/.config/blender/VERSION/scripts/presets/``` <br>
-
-!['Example UI'](https://raw.githubusercontent.com/wiki/schroef/Save-Render-Presets/images/save-render-presets-v002.png?14102021)
 
 
 ### System Requirements
