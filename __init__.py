@@ -21,7 +21,7 @@
 bl_info = {
     "name": "Save Render Presets",
     "author": "Rombout Versluijs, Daniel Engler",
-    "version": (0, 0, 2),
+    "version": (0, 0, 3),
     "blender": (2, 93, 0),
     "location": "Properties > Render",
     "description": "Saves presets of all settign render tab",
@@ -63,12 +63,12 @@ def cycles_presets_menu(self, context):
         row.operator("render.workbench_render_preset_add", text="", icon="REMOVE").remove_active = True
     if(context.engine == 'CYCLES'):
         row.menu("CYCLES_MT_render_presets",text=bpy.types.CYCLES_MT_render_presets.bl_label)
-        row.operator("render.cycles_render_preset_add", text="", icon="ADD")
-        row.operator("render.cycles_render_preset_add", text="", icon="REMOVE").remove_active = True
+        row.operator(CYCLES_OT_AddCyclesPreset.bl_idname, text="", icon="ADD")
+        row.operator(CYCLES_AddPresetRender.bl_idname, text="", icon="REMOVE").remove_active = True
     if(context.engine == 'BLENDER_EEVEE'):
         row.menu("EEVEE_MT_render_presets",text=bpy.types.EEVEE_MT_render_presets.bl_label)
-        row.operator("render.eevee_render_preset_add", text="", icon="ADD")
-        row.operator("render.eevee_render_preset_add", text="", icon="REMOVE").remove_active = True
+        row.operator(EEVEE_OT_AddEeveePreset.bl_idname, text="", icon="ADD")
+        row.operator(EEVEE_AddPresetRender.bl_idname, text="", icon="REMOVE").remove_active = True
 
 
 classes = (
@@ -76,7 +76,7 @@ classes = (
     WORKBENCH_AddPresetRender,
     CYCLES_MT_render_presets,
     CYCLES_AddPresetRender,
-    CYCLES_OT_AddEeveePreset,
+    CYCLES_OT_AddCyclesPreset,
     EEVEE_MT_render_presets,
     EEVEE_AddPresetRender,
     EEVEE_OT_AddEeveePreset,

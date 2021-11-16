@@ -64,7 +64,7 @@ class EEVEE_AddPresetRender(AddPresetBase, Operator):
     preset_subdir = PRESET_SUBDIR
 
 
-class EEVEE_OT_AddEeveePreset(Operator):
+class EEVEE_OT_AddEeveePreset(AddPresetBase, Operator):
     bl_idname = "render.eevee_render_preset_add"
     bl_label = "Add Eevee Preset"
 
@@ -85,7 +85,29 @@ class EEVEE_OT_AddEeveePreset(Operator):
         # layout.prop(self, "film_transparent")
         layout.prop(self, "preset_name")
 
+    @staticmethod
+    def as_filename(name):  # could reuse for other presets
+
+        # lazy init maketrans
+        def maketrans_init():
+            cls = AddPresetBase
+            attr = "_as_filename_trans"
+
+            trans = getattr(cls, attr, None)
+            if trans is None:
+                trans = str.maketrans({char: "_" for char in " !@#$%^&*(){}:\";'[]<>,.\\/?"})
+                setattr(cls, attr, trans)
+            return trans
+
+        name = name.lower().strip()
+        name = bpy.path.display_name_to_filepath(name)
+        trans = maketrans_init()
+        # Strip surrounding "_" as they are displayed as spaces.
+        return name.translate(trans).strip("_")
+        
     def execute(self, context):
+        preset_menu_class = getattr(bpy.types, "EEVEE_MT_render_presets")
+
         if self.preset_name == "":
             self.report({'INFO'}, "Preset needs a name!")
             return {'CANCELLED'}
@@ -116,9 +138,13 @@ class EEVEE_OT_AddEeveePreset(Operator):
                 {'ERROR'}, f"FileNotFoundError for '{preset_path}'")
             return {'CANCELLED'}
 
-        preset_file_path = preset_path / Path(f"{self.preset_name}.py")
+        filename = self.as_filename(self.preset_name)
+        preset_file_path = preset_path / Path(f"{filename}.py")
 
         with open(preset_file_path, 'w') as preset_file:
             preset_file.writelines(preset_lines)
+
+        # Set new Preset as active
+        preset_menu_class.bl_label = bpy.path.display_name(filename)
 
         return {'FINISHED'}
