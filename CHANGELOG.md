@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 - Adding new preset did not make it active in the preset menu
 
 ### Changed
-- Info links Preferenes, changed warning to wiki_url and track_url
+- Info links Preferences, changed warning to wiki_url and track_url
 
 ## [0.0.2] - 2021-10-14
 ### Changed
