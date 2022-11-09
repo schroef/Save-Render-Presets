@@ -21,7 +21,7 @@
 bl_info = {
     "name": "Save Render Presets",
     "author": "Rombout Versluijs, Daniel Engler",
-    "version": (0, 0, 4),
+    "version": (0, 0, 5),
     "blender": (2, 93, 0),
     "location": "Properties > Render",
     "description": "Saves presets of all settign render tab",

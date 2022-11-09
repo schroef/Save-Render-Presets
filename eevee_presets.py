@@ -5,6 +5,7 @@ from bl_operators.presets import AddPresetBase
 from bpy.props import BoolProperty, StringProperty
 from bpy.types import Menu, Operator, Panel
 from mathutils import Color
+import os
 
 PRESET_SUBDIR = "render-presets/eevee"
 EXCLUDE_LIST = ["__", "bl_rna", "gi_cache_info", "rna_type"]
