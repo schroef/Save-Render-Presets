@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.0.6] - 2023-03-14
+### Fixed
+- Error when save preset >  user_resource() takes 1 positional argument but 2 positional arguments (and 1 keyword-only argument) were given > #2
+
 ## [0.0.5] - 2022-11-09
 ### Fixed
 - Issue when saving render-preset for eevee > issue #1

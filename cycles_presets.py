@@ -127,7 +127,7 @@ class CYCLES_OT_AddCyclesPreset(Operator):
 
         # from preset.py
         target_path = os.path.join("presets", PRESET_SUBDIR)
-        preset_path = bpy.utils.user_resource('SCRIPTS',target_path,create=True)
+        preset_path = bpy.utils.user_resource('SCRIPTS',path=target_path,create=True)
         print(preset_path)
 
         # Causes error when using sub dirs
