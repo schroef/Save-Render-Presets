@@ -5,7 +5,6 @@ from bl_operators.presets import AddPresetBase
 from bpy.props import BoolProperty, StringProperty
 from bpy.types import Menu, Operator, Panel
 from mathutils import Color
-import os
 
 PRESET_SUBDIR = "render-presets/eevee"
 EXCLUDE_LIST = ["__", "bl_rna", "gi_cache_info", "rna_type"]
@@ -23,10 +22,28 @@ def get_eevee_values():
     for elem in eevee_settings_list:
         key, value = elem
         if all(item not in key for item in EXCLUDE_LIST):
+            # print("Key: %s - Value: %s" % (key, value))
             if isinstance(value, Color):
                 val = (value.r, value.g, value.b)
             elif isinstance(value, str):
                 val = f"'{value}'"
+            elif type(value).__name__ == 'RaytraceEEVEE':
+                ray_trace_opt = inspect.getmembers(bpy.context.scene.eevee.ray_tracing_options)
+                for elem in ray_trace_opt:
+                    key, value = elem
+                    if all(item not in key for item in EXCLUDE_LIST):
+                        key, value = elem
+                        if all(item not in key for item in EXCLUDE_LIST):
+                            if isinstance(value, str):
+                                val = f"'{value}'"
+                            else:
+                                val = value
+                            # print("value %s" % value)
+                            # print("key %s - %s" % (key,(key=="use_denoise")))
+                            pre_vals[f"{EEVEE_KEY_PREFIX}.ray_tracing_options.{key}"] = val
+                if key=='use_denoise':
+                    continue
+            # print(value=="use_denoise")
             else:
                 val = value
             pre_vals[f"{EEVEE_KEY_PREFIX}.{key}"] = val
@@ -124,23 +141,25 @@ class EEVEE_OT_AddEeveePreset(AddPresetBase, Operator):
             line = f"{key} = {value}\n"
             preset_lines.append(line)
 
-        # from preset.py
-        target_path = os.path.join("presets", PRESET_SUBDIR)
-        preset_path = bpy.utils.user_resource('SCRIPTS',path=target_path,create=True)
-        print(preset_path)
+        user_path = Path(bpy.utils.resource_path('USER'))
+        preset_path = user_path / Path(f"scripts/presets/{PRESET_SUBDIR}")
+        preset_main_path = user_path / Path(f"scripts/presets/render-presets")
 
-        # Causes error when using sub dirs
-        # try:
-        # if not preset_path.exists():
-        #     preset_path.mkdir()
-        # except PermissionError as _:
-        #     self.report(
-        #         {'ERROR'}, f"PermissionError for '{preset_path}'")
-        #     return {'CANCELLED'}
-        # except FileNotFoundError as _:
-        #     self.report(
-        #         {'ERROR'}, f"FileNotFoundError for '{preset_path}'")
-            # return {'CANCELLED'}
+        # print("preset_path excist %s" % preset_path.exists())
+        try:
+            if not preset_main_path.exists():
+                preset_main_path.mkdir()
+            if not preset_path.exists():
+                # print("Make preset_path folder")
+                preset_path.mkdir()
+        except PermissionError as _:
+            self.report(
+                {'ERROR'}, f"PermissionError for '{preset_path}'")
+            return {'CANCELLED'}
+        except FileNotFoundError as _:
+            self.report(
+                {'ERROR'}, f"FileNotFoundError for '{preset_path}'")
+            return {'CANCELLED'}
 
         filename = self.as_filename(self.preset_name)
         preset_file_path = preset_path / Path(f"{filename}.py")

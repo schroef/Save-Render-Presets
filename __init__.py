@@ -21,12 +21,12 @@
 bl_info = {
     "name": "Save Render Presets",
     "author": "Rombout Versluijs, Daniel Engler",
-    "version": (0, 0, 6),
-    "blender": (2, 93, 0),
+    "version": (0, 0, 7),
+    "blender": (2, 91, 0),
     "location": "Properties > Render",
     "description": "Saves presets of all settign render tab",
-    "tracker_url": "https://github.com/schroef/Save-Render-Presets/issues",
-    "wiki_url": "https://github.com/schroef/Save-Render-Presets",
+    "warning": "https://github.com/schroef/Save-Render-Presets/issues",
+    "doc_url": "https://github.com/schroef/Save-Render-Presets",
     "category": "Render",
 }
 

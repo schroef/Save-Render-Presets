@@ -5,8 +5,6 @@ from bl_operators.presets import AddPresetBase
 from bpy.props import BoolProperty, StringProperty
 from bpy.types import Menu, Operator
 from mathutils import Color
-import os
-    # from bpy.utils import is_path_builtin
 
 PRESET_SUBDIR = "render-presets/cycles"
 EXCLUDE_LIST = ["__", "bl_rna", "gi_cache_info", "rna_type","_devices_update_callback","debug_","register","unregister"]
@@ -125,23 +123,25 @@ class CYCLES_OT_AddCyclesPreset(Operator):
             line = f"{key} = {value}\n"
             preset_lines.append(line)
 
-        # from preset.py
-        target_path = os.path.join("presets", PRESET_SUBDIR)
-        preset_path = bpy.utils.user_resource('SCRIPTS',path=target_path,create=True)
-        print(preset_path)
+        user_path = Path(bpy.utils.resource_path('USER'))
+        preset_path = user_path / Path(f"scripts/presets/{PRESET_SUBDIR}")
+        # print(preset_path)
+        preset_main_path = user_path / Path(f"scripts/presets/render-presets")
 
-        # Causes error when using sub dirs
-        # try:
-        # if not preset_path.exists():
-        #     preset_path.mkdir()
-        # except PermissionError as _:
-        #     self.report(
-        #         {'ERROR'}, f"PermissionError for '{preset_path}'")
-            # return {'CANCELLED'}
-        # except FileNotFoundError as _:
-        #     self.report(
-        #         {'ERROR'}, f"FileNotFoundError for '{preset_path}'")
-            # return {'CANCELLED'}
+        # print("preset_path excist %s" % preset_path.exists())
+        try:
+            if not preset_main_path.exists():
+                preset_main_path.mkdir()
+            if not preset_path.exists():
+                preset_path.mkdir()
+        except PermissionError as _:
+            self.report(
+                {'ERROR'}, f"PermissionError for '{preset_path}'")
+            return {'CANCELLED'}
+        except FileNotFoundError as _:
+            self.report(
+                {'ERROR'}, f"FileNotFoundError for '{preset_path}'")
+            return {'CANCELLED'}
 
         filename = self.as_filename(self.preset_name)
         preset_file_path = preset_path / Path(f"{filename}.py")

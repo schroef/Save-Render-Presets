@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.0.7] - 2024-07-01
+### Fixed
+- Error when load preset EEVEE ray_trace_options > added extra subloop as its uses sub class
+- Issue with plain install, folder 'render-presets' in user folder never gets created, both for EEVEE and CYCLES
+
 ## [0.0.6] - 2023-03-14
 ### Fixed
 - Error when save preset >  user_resource() takes 1 positional argument but 2 positional arguments (and 1 keyword-only argument) were given > #2
@@ -36,6 +41,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 <!--### Official Rigify Info-->
 
+[0.0.7]:https://github.com/schroef/Save-Render-Presets/releases/tag/v0.0.7
 [0.0.6]:https://github.com/schroef/Save-Render-Presets/releases/tag/v0.0.6
 [0.0.5]:https://github.com/schroef/Save-Render-Presets/releases/tag/v0.0.5
 [0.0.4]:https://github.com/schroef/Save-Render-Presets/releases/tag/v0.0.4
