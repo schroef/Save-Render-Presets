@@ -7,7 +7,7 @@ from bpy.types import Menu, Operator
 from mathutils import Color
 
 PRESET_SUBDIR = "render-presets/cycles"
-EXCLUDE_LIST = ["__", "bl_rna", "gi_cache_info", "rna_type","_devices_update_callback","debug_","register","unregister"]
+EXCLUDE_LIST = ["__", "bl_rna", "gi_cache_info", "rna_type","_devices_update_callback","debug_","register","unregister", "bl_system_properties_get", "adaptive_compile_description"]
 CYCLES_KEY_PREFIX = "cycles"
 PRESET_HEAD = """import bpy
 cycles = bpy.context.scene.cycles
@@ -22,13 +22,14 @@ def get_cycles_values():
     for elem in cycles_settings_list:
         key, value = elem
         if all(item not in key for item in EXCLUDE_LIST):
-            if isinstance(value, Color):
-                val = (value.r, value.g, value.b)
-            elif isinstance(value, str):
-                val = f"'{value}'"
-            else:
-                val = value
-            pre_vals[f"{CYCLES_KEY_PREFIX}.{key}"] = val
+            if value != '':
+                if isinstance(value, Color):
+                    val = (value.r, value.g, value.b)
+                elif isinstance(value, str):
+                    val = f"'{value}'"
+                else:
+                    val = value
+                pre_vals[f"{CYCLES_KEY_PREFIX}.{key}"] = val
     return pre_vals
 
 # cycles_values = {}

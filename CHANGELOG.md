@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.0.8] - 2026-01-13
+### Added
+- extra check to bypass values:'' > causes issues with enum not set to a default
+
+### Fixed
+- Preset menu not showing due to 'BLENDER_EEVEE_NEXT' nnew naming for EEVEE
+- Issue wtih bl5 adding functions, added 'bl_system_properties_get" and 'adaptive_compile_description' to exclude list
+
 ## [0.0.7] - 2024-07-01
 ### Fixed
 - Error when load preset EEVEE ray_trace_options > added extra subloop as its uses sub class
@@ -41,6 +49,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 <!--### Official Rigify Info-->
 
+[0.0.8]:https://github.com/schroef/Save-Render-Presets/releases/tag/v0.0.8
 [0.0.7]:https://github.com/schroef/Save-Render-Presets/releases/tag/v0.0.7
 [0.0.6]:https://github.com/schroef/Save-Render-Presets/releases/tag/v0.0.6
 [0.0.5]:https://github.com/schroef/Save-Render-Presets/releases/tag/v0.0.5

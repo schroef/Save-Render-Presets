@@ -21,7 +21,7 @@
 bl_info = {
     "name": "Save Render Presets",
     "author": "Rombout Versluijs, Daniel Engler",
-    "version": (0, 0, 7),
+    "version": (0, 0, 8),
     "blender": (2, 91, 0),
     "location": "Properties > Render",
     "description": "Saves presets of all settign render tab",
@@ -65,7 +65,7 @@ def cycles_presets_menu(self, context):
         row.menu("CYCLES_MT_render_presets",text=bpy.types.CYCLES_MT_render_presets.bl_label)
         row.operator(CYCLES_OT_AddCyclesPreset.bl_idname, text="", icon="ADD")
         row.operator(CYCLES_AddPresetRender.bl_idname, text="", icon="REMOVE").remove_active = True
-    if(context.engine == 'BLENDER_EEVEE'):
+    if(context.engine == 'BLENDER_EEVEE' or context.engine == 'BLENDER_EEVEE_NEXT'):
         row.menu("EEVEE_MT_render_presets",text=bpy.types.EEVEE_MT_render_presets.bl_label)
         row.operator(EEVEE_OT_AddEeveePreset.bl_idname, text="", icon="ADD")
         row.operator(EEVEE_AddPresetRender.bl_idname, text="", icon="REMOVE").remove_active = True
@@ -91,6 +91,8 @@ def register():
 
 
 def unregister():
+    bpy.types.RENDER_PT_context.remove(cycles_presets_menu)
+    
     for cls in classes:
         bpy.utils.unregister_class(cls)
 

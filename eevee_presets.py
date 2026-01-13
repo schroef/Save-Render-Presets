@@ -22,17 +22,21 @@ def get_eevee_values():
     for elem in eevee_settings_list:
         key, value = elem
         if all(item not in key for item in EXCLUDE_LIST):
-            # print("Key: %s - Value: %s" % (key, value))
-            if isinstance(value, Color):
-                val = (value.r, value.g, value.b)
-            elif isinstance(value, str):
-                val = f"'{value}'"
-            elif type(value).__name__ == 'RaytraceEEVEE':
-                ray_trace_opt = inspect.getmembers(bpy.context.scene.eevee.ray_tracing_options)
-                for elem in ray_trace_opt:
-                    key, value = elem
-                    if all(item not in key for item in EXCLUDE_LIST):
+            if value != '':
+                # print("Key: %s - Value: %s" % (key, value))
+                if isinstance(value, Color):
+                    val = (value.r, value.g, value.b)
+                elif isinstance(value, str):
+                    val = f"'{value}'"
+                
+                elif type(value).__name__ == 'RaytraceEEVEE':
+                    print(type(value))
+                    print(type(key))
+                    ray_trace_opt = inspect.getmembers(bpy.context.scene.eevee.ray_tracing_options)
+                    for elem in ray_trace_opt:
                         key, value = elem
+                        # if all(item not in key for item in EXCLUDE_LIST):
+                        #     key, value = elem
                         if all(item not in key for item in EXCLUDE_LIST):
                             if isinstance(value, str):
                                 val = f"'{value}'"
@@ -41,12 +45,12 @@ def get_eevee_values():
                             # print("value %s" % value)
                             # print("key %s - %s" % (key,(key=="use_denoise")))
                             pre_vals[f"{EEVEE_KEY_PREFIX}.ray_tracing_options.{key}"] = val
-                if key=='use_denoise':
-                    continue
-            # print(value=="use_denoise")
-            else:
-                val = value
-            pre_vals[f"{EEVEE_KEY_PREFIX}.{key}"] = val
+                    if key=='use_denoise':
+                        continue
+                # print(value=="use_denoise")
+                else:
+                    val = value
+                pre_vals[f"{EEVEE_KEY_PREFIX}.{key}"] = val
     return pre_vals
 
 # eevee_values = {}
